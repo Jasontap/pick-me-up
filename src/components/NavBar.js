@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import { SideBarData } from './SideBarData';
 import { IconContext } from 'react-icons';
+import { SideBarData } from './SideBarData';
 import { clearUser } from "../store/users";
-import { useHistory } from "react-router";
 
 
 const Navbar = (props) => {
