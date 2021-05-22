@@ -35,7 +35,7 @@ const Navbar = (props) => {
                     <AiIcons.AiOutlineClose />
                   </Link>              
                 </li>
-                <Link to=''> <span class="nav-text text-white"> {props.users.single.name} </span></Link>
+                <Link to=''> <span className="nav-text text-white"> {props.users.single.name} </span></Link>
                 <br />
                 <Link to=''> <img style={{ width:"50px" }} src={props.users.single.photo} alt="profile-image"></img> </Link>
                 {
