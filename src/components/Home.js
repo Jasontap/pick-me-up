@@ -10,11 +10,7 @@ class Home extends Component{
     return (
       <div >
         <center>
-          { user.name ? (
-            <p>Hello, { user.name }!</p>
-          ) : (
-            <p>Welcome stranger</p>
-          )}
+          
         </center>
         <center>
           <div id= 'pick-up'className='border text-center mb-3 home-hover' style={{ width: 275 + 'px' }, { fontSize: 3 + 'rem' }} > 

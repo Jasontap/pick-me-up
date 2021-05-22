@@ -24,20 +24,20 @@ const Navbar = (props) => {
         <div>
           <IconContext.Provider value={{ color: 'white' }}>
             <div className='navbar'>
-              <Link className='menu-bars' > 
+              <Link className='menu-bars' to=''> 
                 <FaIcons.FaBars onClick={() => showSidebar()}/> 
               </Link> 
             </div>
             <nav className= {sidebar ? 'nav-menu active' : 'nav-menu'}>       
               <ul className='nav-menu-items' onClick={() => showSidebar()}>
                 <li className='navbar-toggle'>
-                  <Link className='menu-bars'>
+                  <Link className='menu-bars' to=''>
                     <AiIcons.AiOutlineClose />
                   </Link>              
                 </li>
-                <Link> <span class="nav-text text-white"> {props.users.single.name} </span></Link>
+                <Link to=''> <span class="nav-text text-white"> {props.users.single.name} </span></Link>
                 <br />
-                <Link> <img style={{ width:"50px" }} src={props.users.single.photo} alt="profile-image"></img> </Link>
+                <Link to=''> <img style={{ width:"50px" }} src={props.users.single.photo} alt="profile-image"></img> </Link>
                 {
                   SideBarData.map((item, index) => {
                     return (                 
@@ -56,7 +56,13 @@ const Navbar = (props) => {
             </nav>
           </IconContext.Provider>
           <div className=' nav nav-tabs justify-content-around'>
-            <button className = "nav-link btn btn-danger text-dark">Hey {user.name}</button>
+            <button className = "nav-link btn btn-danger text-dark">
+              { user.name ? (
+                <p>Hey { user.name }!</p>
+              ) : (
+                <p>Welcome stranger</p>
+              )}
+            </button>
             <Link className='nav-link text-dark' to='/'> Home </Link>
             <button className = "nav-link btn btn-danger text-dark" onClick={() => props.logout(history)}> logout </button>
           </div>
