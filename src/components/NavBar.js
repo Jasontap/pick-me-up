@@ -56,6 +56,7 @@ const Navbar = (props) => {
             </nav>
           </IconContext.Provider>
           <div className=' nav nav-tabs justify-content-around'>
+            <button className = "nav-link btn btn-danger text-dark">Hey {user.name}</button>
             <Link className='nav-link text-dark' to='/'> Home </Link>
             <button className = "nav-link btn btn-danger text-dark" onClick={() => props.logout(history)}> logout </button>
           </div>
