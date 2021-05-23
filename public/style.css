@@ -109,11 +109,22 @@ h1 {
   align-items: center;
 }
 
+.nav-tabs {
+  display: flex;
+  justify-content: space-around;
+}
+
+.menu-options-username {
+  display: flex;
+  align-items: center;
+}
+
 .menu-bars {
   margin-left: 2 rem;
   font-size: 2rem;
   background: none;
 }
+
 .nav-menu {
   background-color: black;
   width: 250px;
