@@ -26,6 +26,8 @@ class GameCard extends Component{
   
   render(){
     const { game, players, openGame } = this.props;
+    const playerCount = players.length;
+    const maxPlayers = game.maxPlayerCount;
     
     return (
       <div className='game-card ' >
@@ -38,7 +40,10 @@ class GameCard extends Component{
               <h4>
                 {
                   players ? (
-                    <span>Player Count: {players.length}</span>
+                    <div>
+                      <p>Player Count: {playerCount}</p>
+                      <p>Waiting on {maxPlayers - playerCount} more to join.</p>
+                    </div>
                   ) : (
                     ''
                   )
