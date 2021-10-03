@@ -10,9 +10,9 @@ const Map = withScriptjs(withGoogleMap((props) =>{
     return (
       <GoogleMap zoom={14} center={ { lat:  center[1]*1, lng: center[0]*1 } } >
         {courts.map((court) => {
-          const coord = court.the_geom.coordinates[0][0][0]
+          const coord = court.the_geom.coordinates[0][0][0];
           return(
-            <div>
+            <div key={ court.id }>
               <Marker key={court.objectid} position={{lat: coord[1]*1, lng: coord[0]*1}} onClick={(ev)=>{
                 props.setCourt(ev,court)
                 props.handleMarkers(court)

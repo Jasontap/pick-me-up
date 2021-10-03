@@ -18,3 +18,11 @@ npm i
 </ul>
 
 # run and enjoy :)
+
+
+## Libraries, Frameworks, and API Docs:
+<ul>
+  <li>
+    <a href="https://www.npmjs.com/package/react-google-maps">react-google-maps</a>
+  </li>
+</ul>
