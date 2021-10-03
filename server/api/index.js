@@ -17,6 +17,10 @@ app.get("/", (req, res, next) =>
 	res.sendFile(path.join(__dirname, "..", "..", "public/index.html"))
 );
 
+app.get("/images/paving", (req, res, next) =>
+	res.sendFile(path.join(__dirname, "..", "..", "public/images/paving.jpg"))
+);
+
 //the router :)
 app.use("/api", require("./routes"));
 

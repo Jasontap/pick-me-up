@@ -8,7 +8,6 @@ const init = async () => {
     if (process.env.SEED){
 		  await syncAndSeed();
     }
-    //no clue what this is doing but was in the Grace Shopper boiler plate should ask
     else {
       await db.sync()
     }
