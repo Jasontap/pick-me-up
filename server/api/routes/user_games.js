@@ -61,7 +61,6 @@ router.post("/", async (req, res, next) => {
 				gameId: req.body.gameId,
 				userId: req.body.userId,
 			},
-			// was slightly misspelled as defauls
 			defaults: req.body,
 		});
 

@@ -7,6 +7,9 @@ const Game = db.define('game', {
     type: UUID,
     defaultValue: UUIDV4
   },
+  name: {
+    type: STRING
+  },
   winner: { 
     type: STRING, 
   },  

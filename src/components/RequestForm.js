@@ -17,6 +17,7 @@ export class RequestForm extends React.Component {
       chosenCourt: null,
       date: '',
       time: '',
+      gameName: '',
       finished: false
     }
     this.handleInputs = this.handleInputs.bind(this)
@@ -38,26 +39,28 @@ export class RequestForm extends React.Component {
   async courtSubmit(ev){
     ev.preventDefault()
     const courts =  (await axios.get(`https://data.cityofnewyork.us/resource/9wwi-sb8x.json?$$app_token=${COURT_API}&basketball=Yes&zipcode=${this.state.zipcode}`)).data
-    this.setState({courts: courts, showCourts: true})
+    if (courts.length > 0) {
+      this.setState({courts: courts, showCourts: true})
+    } else {
+      alert('No courts were found at that zipcode. Please enter a different zipcode.')
+    }
   }
   
   async submitRequest(ev){
     ev.preventDefault()
-    const user = this.props.user
-    const court = this.state.courts.filter((court)=> court.objectid === this.state.chosenCourt)
+    const { user }= this.props;
+    const court = this.state.courts.find((court)=> court.objectid === this.state.chosenCourt)
+    const { chosenCourt, date, gameName, zipcode } = this.state;
+    
     const game = {
-      location: this.state.chosenCourt,
-      // time: new Date(this.state.time).getTime(),
-      dateAndTime: this.state.date,
+      location: chosenCourt,
+      dateAndTime: date,
+      name: gameName,
       open: true,
-      // using null values to determine that no winner has been declared so commited these out 
-      // winner: 'tbd',
-      // finalScore: 'tbd',
-      done: false,
       host: user.id, 
-      zipcode: this.state.zipcode,
-      long:`${court[0].the_geom.coordinates[0][0][0][0]}`,
-      lat: `${court[0].the_geom.coordinates[0][0][0][1]}`,
+      zipcode: zipcode,
+      long:`${court.the_geom.coordinates[0][0][0][0]}`,
+      lat: `${court.the_geom.coordinates[0][0][0][1]}`,
     }
     const alerts = []
     
@@ -124,6 +127,7 @@ export class RequestForm extends React.Component {
   
   render(){
     const { user } = this.props;
+    const { courts, chosenCourt } = this.state;
     
     if(!this.state.finished){
       return(
@@ -142,24 +146,24 @@ export class RequestForm extends React.Component {
                 <div className= 'courtForm' >
                   <label htmlFor='court'>Court:</label>
                   <select onChange={this.handleInputs} name='chosenCourt' >
-                    {this.state.chosenCourt ? (
-                      <option value={this.state.chosenCourt} >Court: {this.state.chosenCourt}</option>
+                    {chosenCourt ? (
+                      <option value={chosenCourt} >Court: {chosenCourt}</option>
                     ): (
                       <option>Select One</option>
                     )}
-                    {this.state.courts.map((court, idx)=>{
-                      if(court.objectid === this.state.chosenCourt){
+                    {courts.map((court, idx)=>{
+                      if(court.objectid === chosenCourt){
                         return
                       }else{
-                        return(<option key={idx} value={court.objectid} >Court: {court.objectid}</option>)
+                        return(<option key={idx} value={ court.objectid } >Court: { court.name ? court.name : court.objectid }</option>)
                       }
                     })}
                   </select>
                   {/* Jason- changed Game model to take date and time as game.dateAndTime and use that to calculate milliseconds for game.time so we can expire old games */}
                   <label htmlFor='date'>Date and Time:</label>
                   <input type="dateTime-local" id="date" name="date" onChange={this.handleInputs}/>
-                  {/* <label htmlFor='time'>Time:</label>
-                  <input type="datetime-local" id="time" name="time" min="06:00" max="20:00" onChange={this.handleInputs}/> */}
+                  <label htmlFor='game-name'>Give your game a name</label>
+                  <input type='text' name='gameName' onChange={this.handleInputs} />
                   { user.id ? 
                     ( <div>
                         <button className='btn btn-primary' onClick={this.submitRequest}>Pick Up!</button>
