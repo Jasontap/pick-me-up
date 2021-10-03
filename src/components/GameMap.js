@@ -12,7 +12,7 @@ const Map = withScriptjs(withGoogleMap((props) =>{
       <GoogleMap zoom={14} center={ { lat:  center.lat * 1, lng: center.long * 1 } } >
         {courts.map((court) => {
           return(
-            <div>
+            <div key={ court.id }>
               <Marker key={court.objectid} position={{lat: court.lat * 1, lng: court.long * 1}} onClick={(ev)=>props.setCourt(ev,court)}/>
               {props.selectedCourt === court && (
                 <InfoWindow

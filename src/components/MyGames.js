@@ -65,7 +65,7 @@ class MyGames extends Component {
 								</div>
 							</div>
 							<div className='courtMap'>
-										<GameMap courts={games}/>
+                <GameMap courts={games}/>
 							</div>
 						</div>
 					</div>
