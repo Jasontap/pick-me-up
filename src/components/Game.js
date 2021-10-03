@@ -38,8 +38,7 @@ export class Game extends Component{
 componentDidUpdate(prevProps){
   //does not mater for the moment as refresh just logs you off
   if (!prevProps.game.id && this.props.game.id){
-      this.setState({ location: this.props.game.location, dateAndTime: this.props.game.dateAndTime, time: this.props.game.time, finalScore: this.props.game.finalScore, winner: this.props.game.winner, done: this.props.game.done });
-      // console.log(this.props);
+    this.setState({ location: this.props.game.location, dateAndTime: this.props.game.dateAndTime, time: this.props.game.time, finalScore: this.props.game.finalScore, winner: this.props.game.winner, done: this.props.game.done });
   }
 }
 onChange(ev){
@@ -48,13 +47,11 @@ onChange(ev){
   this.setState(change);
 }
 async onSave(ev){
-  console.log(this.state)
   ev.preventDefault();
   try {
       await this.props.update(this.props.game.id, this.state);
   }
   catch(ex){
-      // console.log(ex);
       this.setState({ error: ex.response});
   }
 }
@@ -77,8 +74,7 @@ handleMarkers(court){
     const { location, finalScore, error, winner, time } = this.state;
     let { dateAndTime } = this.state;
     const { onChange, onSave} = this;
-    // console.log(this.state)
-    //for some reason there ar strange end characters being added to the date and time 
+    //for some reason there are strange end characters being added to the date and time 
     // this is a temporary way of dealing with them :)
     dateAndTime = dateAndTime.slice(0, 16);
 
@@ -86,7 +82,7 @@ handleMarkers(court){
     if(Date.now() > game.time * 1){
       willPlay = false;
     } 
-    console.log(this.props)
+
     return (
         <div>
           <form onSubmit = { onSave }>
@@ -192,10 +188,7 @@ handleMarkers(court){
 }
 
 const mapStateToProps = (state, otherProps) => {
-  // console.log(otherProps.match);
-  // console.log(state)
   const game = state.games.hosted.find(game => game.id === otherProps.match.params.id * 1) || {};
-  //console.log(game)
   return {
     game, 
   };
@@ -205,10 +198,8 @@ const mapDispatchToProps = (dispatch, { history }) => {
   return {
     destroy: (game)=> {
       dispatch(destroyGame(game, history));
-      // console.log(game)
     },
     update: (id, state)=> {
-      // console.log('hi');
       dispatch(updateGame(id, state, history));
     }
   };

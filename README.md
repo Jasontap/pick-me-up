@@ -10,4 +10,11 @@ create a postgres database named basketball
 
 npm i
 
-run and enjoy :)
+### create a .env file and define items
+<ul>
+  <li>JWT</li>
+  <li>COURT_API</li>
+  <li>MAP_API</li>
+</ul>
+
+# run and enjoy :)

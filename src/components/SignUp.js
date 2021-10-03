@@ -25,9 +25,8 @@ function SignUp() {
       teamToJoin = 'TEAM B';
     }
     if(Date.now() < game.time * 1){
-      // console.log(game.users.length)
-      // console.log(teamToJoin)
-        const addPlayer = (await axios.post('/api/user_games', { gameId: game.id, userId: userId, team: teamToJoin })).data;
+      const addPlayer = (await axios.post('/api/user_games', { gameId: game.id, userId: userId, team: teamToJoin })).data;
+      
       if(!addPlayer.created){
         window.alert('You have already joined this game.');
       } else {
@@ -42,11 +41,8 @@ function SignUp() {
 
 	const joinNewGame = async (newGame, userId) =>{
 		newGame.host = userId;
-    console.log('newGame: ', newGame);
 		const game = (await axios.post('/api/games', newGame)).data
-      //added TEAM just assinging first player to TEAM A, hardcoded in user 13 for testing purposes
-      // await axios.post('/api/user_games', { gameId: newGame.id, userId: 13, team: 'TEAM A' });
-      await axios.post('/api/user_games', { gameId: game.id, userId: userId, team: 'TEAM A' });
+    await axios.post('/api/user_games', { gameId: game.id, userId: userId, team: 'TEAM A' });
   };
 
 	// Create user
@@ -61,18 +57,12 @@ function SignUp() {
 
 		const response = await axios.post("/api/users", request);
 		if (response) {
-			console.log("Success");
-			// console.log(response);
-			// console.log(request);
-
 			//the logic from Login.js so a user is automatically logged in after creating and account 
 			const response2 = await axios.post("/api/login", request);
-			console.log(response2.data);
 			localStorage.setItem("pickmeup-token", response2.data.token);
 			dispatch(loadUser(response2.data.id));
 			const game = JSON.parse(localStorage.getItem("game"))
 			const newGame = JSON.parse(localStorage.getItem("newGame"))
-			console.log('game: ', game);
 			
 			if (game){
 				joinGame(game, response2.data.id);
@@ -90,7 +80,6 @@ function SignUp() {
 	// history, this will be useful once user is automatically logged in
 	// after creating am account
 	const history = useHistory();
-	// console.log(history)
 
 	return (
 		<div className='container justify-content-center'>

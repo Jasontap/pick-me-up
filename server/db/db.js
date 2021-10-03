@@ -23,10 +23,8 @@ if (process.env.DATABASE_URL) {
   }
 }
 
-// console.log(process.env.LOGGING)
 
 if(process.env.LOGGING){
-  // console.log('in this if statement ---------------------------')
   delete config.logging
 }
 

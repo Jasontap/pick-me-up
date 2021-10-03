@@ -11,7 +11,6 @@ const UPDATE_USER = 'UPDATE_USER';
 const intialState = {all: [], single: {}}
 
 const usersReducer = (state = intialState, action) =>{
-    // console.log(action.type);
     if (action.type === LOAD_USERS){
         state.all = action.users
     }
@@ -45,7 +44,6 @@ const _loadUsers = (users) =>{
 export const loadUsers = () =>{
     return async(dispatch)=>{
         const users = (await axios.get('/api/users')).data;
-        // console.log(users);
         dispatch(_loadUsers(users));
     }
 };
@@ -60,24 +58,18 @@ const _loadUser = (user) =>{
 export const loadUser = (userId) =>{
     return async(dispatch)=>{
         const user = (await axios.get(`/api/users/${userId}`)).data;
-        // console.log(user);
         //so we don't load password into the store 
         const clone = Object.assign({}, user, {password: undefined});
-        // console.log(clone);
         dispatch(_loadUser(clone));
     }
 };
 
 export const loadUserWToken = (token) =>{
-    // console.log('---------in loadUserWToken--------------')
     return async(dispatch)=>{
-        // console.log('---------in loadUserWToken IN RETURN STATEMENT--------------')
         // there is probably a better way to do this but this seems to work 
         const user = (await axios.get(`/api/users/token/null?pickmeup-token=${token}`)).data;
-        // console.log(user);
         //so we don't load password into the store 
         const clone = Object.assign({}, user, {password: undefined});
-        // console.log(clone);
         dispatch(_loadUser(clone));
     }
 };
@@ -85,7 +77,6 @@ export const loadUserWToken = (token) =>{
 export const clearUser = () =>{
     return async(dispatch)=>{
         dispatch(_loadUser({}));
-        // console.log(history);
         //history.push('/');
     }
 };
@@ -138,12 +129,9 @@ const _updateUser = user =>({ type: UPDATE_USER, user});
 
 //the change was not showing up in the database but not in the component so just vopied the code from loadUser
 export const updateUser = ( user )=>{
-    // console.log(user);
     return async(dispatch)=>{
         const singleUser = (await axios.put(`/api/users/update/${user.id}`, user )).data;
-        // console.log(singleUser)
         const clone = Object.assign({}, singleUser, {password: undefined});
-        // console.log(clone);
         dispatch(_loadUser(clone));
     }
 }

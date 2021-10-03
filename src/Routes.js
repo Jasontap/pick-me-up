@@ -21,8 +21,6 @@ import {
 class Routes extends Component {
 	// there was a router but I don't know how to use that router
 	render() {
-		// console.log(location)
-		// console.log(history)
 		return (
 			<Switch>
 				<Route path="/login" component={Login} />

@@ -9,17 +9,14 @@ export class MyStats extends Component{
     this.state = {
       loaded: false
     };
-    // console.log(this.props);
   }
 
   componentDidMount(){
-    
     const token = localStorage.getItem("pickmeup-token");
-		// console.log(token)
+    
 		if(token){
 			// this.props.loadUserWToken(null, token);
       let user = this.props.users.single;
-      // console.log(user.id)
       this.props.bootstrap(user.id, token);
 		}
    

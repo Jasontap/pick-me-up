@@ -56,7 +56,6 @@ export default class GameMap extends React.Component{
   }
 
   setCourt(ev,court){
-    console.log(this.state.selectedCourt)
     if(this.state.selectedCourt === court){
       this.setState({selectedCourt: null})
     }

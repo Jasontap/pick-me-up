@@ -26,7 +26,6 @@ class GameCard extends Component{
   
   render(){
     const { game, players, openGame } = this.props;
-    // console.log(game);
     
     return (
       <div className='game-card ' >

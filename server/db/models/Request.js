@@ -38,6 +38,4 @@ const Request = db.define(
 );
 
 
-// console.log(db);
-
 module.exports = Request;

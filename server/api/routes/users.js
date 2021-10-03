@@ -29,8 +29,6 @@ router.get("/token/:id",
 passport.authenticate("jwt", { session: false }), 
 async (req, res, next) => {
 	try {
-		// console.log('------------in user/token api-----------')
-		// console.log(req.user.id)
 		res.send(await User.findByPk(req.user.id));
 	} catch (ex) {
 		next(ex);
@@ -50,7 +48,6 @@ router.post("/", async (req, res, next) => {
 router.put("/update/:id", async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.params.id);
-		console.log(req.body, "REQ.BODY IN BACKEND ROUTE");
 		res.send(
 			await user.update({
 				email: req.body.email,

@@ -43,7 +43,6 @@ const User = db.define("user", {
 
 User.prototype.validatePassword = async function (password) {
 	const authStatus = await bcrypt.compare(password, this.password);
-	console.log("AuthStatus" + authStatus);
 	return authStatus;
 };
 

@@ -26,38 +26,31 @@ export class MyProfile extends Component{
   }
 
   async handleSubmit(e) {
-    // console.log(e)
-    
     e.preventDefault();
     
     const { users, history } = this.props;
     let user = users.single;
-    // console.log(history);
     
-    //TODO : perform some sort of update to selected user through redux thunks
+    //TODO : perform some kind of update to selected user through redux thunks
     //await axios.update("/user/:id", {...this.state})
     await this.props.updateUser({...this.state, id: user.id});
     history.push("/");
     
 	}
   async onChange(e) {
-      // console.log("TARGET VALUE", e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     })
-    //  console.log("AFTER SETSTATE", this.state.email);
-		
 	}
 
   //Eventually, clicking on MyProfile on the navbar
   //Will send in user information to my component as props from the user who is logged in
 
   render(){
-   
-     const { users } = this.props;
+    const { users } = this.props;
     let user = users.single;
-    // console.log(users)
     const { email, name, age, height, description, photo } = this.state;
+    
     return (
         <div id='user-form' className='container justify-content-center'>
           <div> 
@@ -144,13 +137,11 @@ export class MyProfile extends Component{
 }
 
 const mapStateToProps = (state) => {
- 
   return state;
 }
 
 
 const mapDispatchToProps = (dispatch) => {
-  
   return {
     updateUser: (user) => dispatch(updateUser(user)),
     bootstrap: ()=> {

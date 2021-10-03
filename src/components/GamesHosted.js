@@ -21,11 +21,10 @@ export class GamesHosted extends Component{
     // this.props.bootstrap(1);
 
     const token = localStorage.getItem("pickmeup-token");
-		// console.log(token)
+    
 		if(token){
 			// this.props.loadUserWToken(null, token);
       let user = this.props.users.single;
-      // console.log(user.id)
       this.props.bootstrap(user.id, token);
 		}
 
@@ -49,10 +48,7 @@ export class GamesHosted extends Component{
         futureGames.push(game)
       }
     });
-    console.log(games.sort((a, b) => a.time - b.time))
-    // console.log(futureGames)
-    // console.log(pastGames)
-    // console.log(scoredGames)
+
     futureGames.sort((a, b) => a.time - b.time);
     pastGames.sort((a, b) => a.time - b.time);  
     scoredGames.sort((a, b) => a.time - b.time);

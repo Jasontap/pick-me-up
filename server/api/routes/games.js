@@ -23,7 +23,6 @@ router.get('/open/', async(req, res, next)=> {
       },
 			include: [ User ]
     });
-		console.log(games);
 
 		res.send(games)
 
@@ -72,7 +71,6 @@ router.get('/open/:zipcode', async(req, res, next)=> {
       },
 			include: [ User ]
     });
-		console.log(games);
 
 		res.send(games)
 
@@ -99,19 +97,19 @@ async(req, res, next)=> {
 				model: User,
 			} 
     });
-		// console.log(games)
+
 		let closedGames = [];
 		for (let i = 0; i < games.length; i++) {
 			if (games[i].finalScore !== null) {	
 				for (let j = 0; j < games[i].users.length; j++) {
 					if (games[i].users[j].id === req.user.id) {
-						// console.log(games[i]);
+
 						closedGames.push(games[i]);
 					}
 				}
 			}
 		}
-		// console.log(closedGames)
+
 		res.send(closedGames);
   }
   catch(ex){
@@ -153,7 +151,6 @@ router.get('/:id', async(req, res, next)=> {
 // creates a game
 router.post("/", async (req, res, next) => {
 	try {
-		console.log(req.body)
 		res.status(201).send(await Game.create(req.body));
 	} catch (ex) {
 		next(ex);

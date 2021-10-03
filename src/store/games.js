@@ -116,11 +116,8 @@ export const loadClosedGames = () => {
 };
 
 export const loadClosedGamesForUser = (userId, token) => {
-	// console.log(token);
 	return async (dispatch) => {
 		const games = (await axios.get(`/api/games/closed/${userId}?pickmeup-token=${token}`)).data;
-
-		// console.log(games)
 		dispatch(_loadClosedGames(games));
 	};
 };
@@ -137,7 +134,6 @@ export const loadOpenGamesForUser = (userId, token) => {
 export const loadHostedGames = (userId, token) => {
 	return async (dispatch) => {
 		const games = (await axios.get(`/api/games/hosted/${userId}?pickmeup-token=${token}`)).data;
-		// console.log(games)
 		dispatch(_loadHostedGames(games));
 	};
 };
@@ -155,16 +151,11 @@ export const updateGame = (id, state, history) => {
 	//will put logic to mark games done in here
 	let done = false;
 	if (state.finalScore !== "" && state.winner !== "") {
-		// console.log("should close game");
 		done = true;
 	}
 	return async (dispatch) => {
 		const { finalScore, winner, host, location, dateAndTime } = state;
-		// console.log("-----------in thunk--------------");
-		// console.log(dateAndTime);
 		let time = new Date(dateAndTime).getTime();
-		// console.log(time);
-
 		const game = (
 			await axios.put(`/api/games/${id}`, {
 				done,
@@ -176,9 +167,6 @@ export const updateGame = (id, state, history) => {
 			})
 		).data;
 
-		console.log(game);
-		// console.log(state)
-		// console.log(host);
 		loadHostedGames(host);
 		loadSingleGame(id)
 		//dispatch(_createGame(game));
@@ -186,12 +174,11 @@ export const updateGame = (id, state, history) => {
 	};
 };
 
-//dstroying (deleting) a game and sening usre back to the
-// games they host were those game are reloaded into store so not needed here
+//dstroying (deleting) a game and sending user back to the
+// games they host where those game are reloaded into store so not needed here
 //when a game is deleted
 export const destroyGame = (game, history) => {
 	return async (dispatch) => {
-		console.log(game.host);
 		const host = game.host;
 		await axios.delete(`/api/games/${game.id}`);
 		loadHostedGames(host);

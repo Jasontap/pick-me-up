@@ -19,7 +19,6 @@ class _App extends Component {
 		//I assume once we have the token we should be able to use it load the user 
 		// but not sure how, i mean the token just can store the user ID 
 		const token = localStorage.getItem("pickmeup-token");
-		// console.log(token)
 		if(token){
 			this.props.loadUserWToken( token );
 		}
@@ -28,7 +27,6 @@ class _App extends Component {
 	//hashrouter has the most functionality at the moment but has the hash that looks
 	// slightly funny.  Will use this for the moment
 	render() {
-		// console.log(history)
 		return (
 			<HashRouter>
 				<div>
@@ -56,7 +54,6 @@ const App = connect(mapStateToProps, mapDispatch)(_App);
 
 //so this just takes care of rendering and should be passing history but does not seem too
 
-// console.log(history)
 
 //the router should have worked but does not and I have no way of testing it
 // so we are using the simplier hashrouter

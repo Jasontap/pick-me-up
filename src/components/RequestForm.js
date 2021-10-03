@@ -6,7 +6,6 @@ import {loadUser} from '../store/users'
 import CourtMap from './CourtMap'
 
 const COURT_API = process.env.COURT_API
-// git console.log(process.env.COURT_API);
 
 export class RequestForm extends React.Component {
   constructor(props){
@@ -35,18 +34,17 @@ export class RequestForm extends React.Component {
   handleMarkers(court){
     this.setState({chosenCourt: court.objectid})
   }
+  
   async courtSubmit(ev){
     ev.preventDefault()
     const courts =  (await axios.get(`https://data.cityofnewyork.us/resource/9wwi-sb8x.json?$$app_token=${COURT_API}&basketball=Yes&zipcode=${this.state.zipcode}`)).data
-    console.log(courts)
     this.setState({courts: courts, showCourts: true})
   }
+  
   async submitRequest(ev){
     ev.preventDefault()
     const user = this.props.user
-    // const user = (await axios.get('/api/users/13')).data
     const court = this.state.courts.filter((court)=> court.objectid === this.state.chosenCourt)
-    console.log(court[0])
     const game = {
       location: this.state.chosenCourt,
       // time: new Date(this.state.time).getTime(),
@@ -56,17 +54,19 @@ export class RequestForm extends React.Component {
       // winner: 'tbd',
       // finalScore: 'tbd',
       done: false,
-      host: user.id, //need to change to user.id
+      host: user.id, 
       zipcode: this.state.zipcode,
       long:`${court[0].the_geom.coordinates[0][0][0][0]}`,
       lat: `${court[0].the_geom.coordinates[0][0][0][1]}`,
     }
     const alerts = []
+    
     for(const [key,val] of Object.entries(game)){
         if(val === ''){
             alerts.push(key)
         }
     }
+    
     if(alerts.length > 0){
         const string = alerts.reduce((acc,item)=>{
             acc += `${item}\n`
@@ -74,23 +74,20 @@ export class RequestForm extends React.Component {
         },'Please fill out the following:\n')
         alert(string)
     }
+    
     if(alerts.length === 0){
-      console.log(game)
       const newGame = (await axios.post('/api/games', game)).data
       //added TEAM just assinging first player to TEAM A, hardcoded in user 13 for testing purposes
-      // await axios.post('/api/user_games', { gameId: newGame.id, userId: 13, team: 'TEAM A' });
       await axios.post('/api/user_games', { gameId: newGame.id, userId: user.id, team: 'TEAM A' });
       this.setState({finished: true})
-
+    }
   }
-
-  }
+  
   guestUser(ev){
     ev.preventDefault()
     const user = this.props.user;
     // const user = (await axios.get('/api/users/13')).data
     const court = this.state.courts.filter((court)=> court.objectid === this.state.chosenCourt)
-    console.log(court[0])
     const game = {
       location: this.state.chosenCourt,
       // time: new Date(this.state.time).getTime(),
@@ -106,29 +103,28 @@ export class RequestForm extends React.Component {
       lat: `${court[0].the_geom.coordinates[0][0][0][1]}`,
     }
     const alerts = []
+    
     for(const [key,val] of Object.entries(game)){
-        if(val === ''){
-            alerts.push(key)
-        }
+      if(val === ''){
+          alerts.push(key)
+      }
     }
+    
     if(alerts.length > 0){
-        const string = alerts.reduce((acc,item)=>{
-            acc += `${item}\n`
-            return acc
-        },'Please fill out the following:\n')
-        alert(string)
+      const string = alerts.reduce((acc,item)=>{
+          acc += `${item}\n`
+          return acc
+      },'Please fill out the following:\n')
+      alert(string)
     }
-    if(alerts.length === 0){
-      console.log(game)
-    }
+
     this.props.history.push('/signup')
     localStorage.setItem('newGame', JSON.stringify(game));
-    console.log('hi');
-
-
   }
+  
   render(){
     const { user } = this.props;
+    
     if(!this.state.finished){
       return(
         <div id='requestBox' className='container justify-content-center' >
@@ -180,7 +176,7 @@ export class RequestForm extends React.Component {
           </form>
         </div>
       )
-    }else{
+    } else {
       return(
         <div>
           <h1>Game Created!</h1>

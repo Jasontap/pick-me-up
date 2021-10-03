@@ -17,8 +17,6 @@ const Login = () => {
 
 	// history 
 	const history = useHistory();
-	// console.log(history)
-	// console.log(props)
 
 	// form submit
 	const login = async () => {
@@ -28,12 +26,10 @@ const Login = () => {
 		if (!email || !password) {
 			setError("Error: Please fill out both email and password fields");
 		} else {
-			console.log("button pressed");
 			try {
 				const request = { email, password };
-				console.log(request);
 				const response = await axios.post("/api/login", request);
-				// console.log(response.data);
+
 				localStorage.setItem("pickmeup-token", response.data.token);
 				dispatch(loadUser(response.data.id));
 				setError("Success");

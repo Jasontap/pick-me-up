@@ -55,7 +55,6 @@ router.get(
 
 //creates a user-game link --- joins a player to a game
 router.post("/", async (req, res, next) => {
-	console.log(req.body);
 	try {
 		const [addPlayerToGame, created] = await UserGame.findOrCreate({
 			where: {
