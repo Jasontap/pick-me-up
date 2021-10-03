@@ -169,7 +169,7 @@ export class RequestForm extends React.Component {
                   }
                 </div>
                 <div className='courtMap'>
-                  <CourtMap courts={this.state.courts} handleMarkers={this.handleMarkers}/>
+                  {/* <CourtMap courts={this.state.courts} handleMarkers={this.handleMarkers}/> */}
                 </div>
               </div>
             )}

@@ -16,30 +16,24 @@ class _App extends Component {
 	}
 
 	componentDidMount() {
-		//I assume once we have the token we should be able to use it load the user 
-		// but not sure how, i mean the token just can store the user ID 
 		const token = localStorage.getItem("pickmeup-token");
 		if(token){
 			this.props.loadUserWToken( token );
 		}
 	}
 
-	//hashrouter has the most functionality at the moment but has the hash that looks
-	// slightly funny.  Will use this for the moment
 	render() {
 		return (
 			<HashRouter>
 				<div>
 					<NavBar />
 					<Routes />
-					{/* <Login /> */}
 				</div>
 			</HashRouter>
 		);
 	}
 }
 
-// not sure if I need either of these maybe if I want length??
 const mapStateToProps = (state) => {
 	return state;
 };

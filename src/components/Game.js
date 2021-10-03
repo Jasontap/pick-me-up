@@ -179,7 +179,7 @@ handleMarkers(court){
           </form>
           <div className='container justify-content-center'>
           <h4>This will permanately delete your game</h4>  
-          <button className='btn btn-danger' onClick={()=>destroy(game)}>delete this game</button>
+          <button className='btn btn-danger' onClick={()=>console.log(game)}>delete this game</button>
           </div>         
         </div>            
     );
@@ -188,6 +188,7 @@ handleMarkers(court){
 }
 
 const mapStateToProps = (state, otherProps) => {
+  console.log(state.games)
   const game = state.games.hosted.find(game => game.id === otherProps.match.params.id * 1) || {};
   return {
     game, 

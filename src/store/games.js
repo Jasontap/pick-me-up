@@ -78,6 +78,13 @@ const _createGame = (game) => {
 	};
 };
 
+const _destroyGame = (gameId) => {
+  return {
+    type: DESTROY_GAME,
+    gameId
+  }
+}
+
 //THUNKS****************************************
 export const loadGames = () => {
 	return async (dispatch) => {
@@ -182,10 +189,10 @@ export const destroyGame = (game, history) => {
 		const host = game.host;
 		await axios.delete(`/api/games/${game.id}`);
 		loadHostedGames(host);
-		//dispatch(_createGame(game));
+		// dispatch(_destroyGame(game.id));
 		history.push("/gameshosted");
 	};
 };
 
-// export default store;
+
 export { gamesReducer };
