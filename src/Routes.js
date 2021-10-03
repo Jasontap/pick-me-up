@@ -34,8 +34,6 @@ class Routes extends Component {
 				<Route path='/chat/:id' component={ Chat } />
 				<Route exact path="/account" component={MyProfile} />
 				<Route path="/" component={Home} />
-				{/* <Route exact path='/account' component={ MyProfile } /> */}
-				{/* <Route exact path='/account' component={ MyAccount } /> */}
 				<Redirect to="/home" />
 			</Switch>
 		);
