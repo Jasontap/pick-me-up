@@ -148,7 +148,7 @@ export class RequestForm extends React.Component {
                   <select onChange={this.handleInputs} name='chosenCourt' >
                     {chosenCourt ? (
                       <option value={chosenCourt} >Court: {chosenCourt}</option>
-                    ): (
+                    ) : (
                       <option>Select One</option>
                     )}
                     {courts.map((court, idx)=>{
@@ -167,9 +167,10 @@ export class RequestForm extends React.Component {
                   { user.id ? 
                     ( <div>
                         <button className='btn btn-primary' onClick={this.submitRequest}>Pick Up!</button>
-                      </div> ) : (
-                        <button className='btn btn-primary' onClick={this.guestUser}>Sign up for an account</button>
-                      )
+                      </div> 
+                    ) : (
+                      <button className='btn btn-primary' onClick={this.guestUser}>Sign up for an account</button>
+                    )
                   }
                 </div>
                 <div className='courtMap'>

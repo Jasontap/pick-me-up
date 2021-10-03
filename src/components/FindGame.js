@@ -111,7 +111,7 @@ class FindGame extends Component{
       
                       return (
                         <div key={game.id} className='cardAndButton'>
-                          <GameCard game={game} players={players} openGame={true}/>
+                          <GameCard game={game} players={players} />
                           { user.id ? 
                           ( <div>
                               <button type='button' className='text-center btn btn-primary' onClick={()=>joinGame(game)}>Join this game</button>

@@ -25,7 +25,7 @@ class GameCard extends Component{
   }
   
   render(){
-    const { game, players, openGame } = this.props;
+    const { game, players } = this.props;
     const playerCount = players.length;
     const maxPlayers = game.maxPlayerCount;
     

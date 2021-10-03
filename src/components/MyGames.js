@@ -40,7 +40,7 @@ class MyGames extends Component {
 										const players = game.users;
 										return (
 											<div key={game.id} className='card-body' style={{ width: 375 + 'px' }}>
-												<GameCard game={game} players={players} openGame={true} />
+												<GameCard game={game} players={players} />
 												<div >
 													<center>
 														<button type='button' className='text-center btn btn-primary' onClick={() => leaveGame(game)}>
