@@ -24,15 +24,18 @@ class FindGame extends Component{
     await this.props.loadAllOpenGames();
     this.setState({allGames: this.props.games})
   };
+  
   async courtSubmit(ev){
     ev.preventDefault()
     this.props.loadOpenGames(this.state.zipcode);
     this.setState({showCourts: true})
   }
+  
   handleInputs(ev){
     const {name, value} = ev.target
     this.setState({[name] : value})
   }
+  
   async joinGame(game){
     let teamToJoin = '';
     //check if there are an even or odd number of players assigns the new player accordingly (team A if this player will be odd Tean B for even) 
@@ -42,18 +45,22 @@ class FindGame extends Component{
     else {
       teamToJoin = 'TEAM B';
     }
+    
     if(Date.now() < game.time * 1){
-        const addPlayer = (await axios.post('/api/user_games', { gameId: game.id, userId: this.props.user.id, team: teamToJoin })).data;
+      const addPlayer = (await axios.post('/api/user_games', { gameId: game.id, userId: this.props.user.id, team: teamToJoin })).data;
+        
       if(!addPlayer.created){
         window.alert('You have already joined this game.');
       } else {
         window.alert(`You\'ve joined game ${game.id}!`)
+        this.props.loadAllOpenGames();
       }
     } else {
       window.alert('Sorry this game has already started. Please select another game.');
       await axios.put(`/api/games/${game.id}`, { open: false });
+      this.props.loadAllOpenGames();
     }
-    this.props.loadOpenGames();
+    
   };
 
   guestUser(game){

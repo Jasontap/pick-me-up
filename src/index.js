@@ -18,6 +18,7 @@ class _App extends Component {
 	componentDidMount() {
 		const token = localStorage.getItem("pickmeup-token");
 		if(token){
+      console.log(token)
 			this.props.loadUserWToken( token );
 		}
 	}
