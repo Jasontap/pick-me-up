@@ -15,9 +15,6 @@ import {
 	Chat
 } from "./components";
 
-/**
- * COMPONENT
- */
 class Routes extends Component {
 	// there was a router but I don't know how to use that router
 	render() {
@@ -40,15 +37,9 @@ class Routes extends Component {
 	}
 }
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
 	return state;
 };
 
-const mapDispatch = (dispatch) => {
-	return {};
-};
 
-export default withRouter(connect(mapState, mapDispatch)(Routes));
+export default withRouter(connect(mapState)(Routes));
