@@ -1,7 +1,5 @@
 const router = require("express").Router();
-const {
-	models: { User, Game, UserGame },
-} = require("../../db");
+const { models: { User, Game, UserGame } } = require("../../db");
 const passport = require("passport");
 
 require("../middleware/auth");
@@ -39,14 +37,19 @@ router.get(
 		try {
 			const gameLinksForUser = await UserGame.findAll({
 				where: {
-					userId: req.user.id,
-					// userId: req.params.userId,
+					// userId: req.user.id,
+					userId: req.params.userId,
 				},
-				include: [User, Game],
+				include: [Game, User]
 			});
 			const games = gameLinksForUser.map((link) => link.game);
-			const upcomingGames = games.filter((game) => game.time > Date.now());
-			res.send(upcomingGames);
+      // const upcomingGames = games.map(async(game) => {
+        
+      // } )
+			// const upcomingGames = games.filter((game) => game.time > Date.now());
+			// const upcomingGames = gameLinksForUser.filter((link) => link.game.time > Date.now());
+      // console.log(gameLinksForUser)
+			res.send(gameLinksForUser);
 		} catch (ex) {
 			next(ex);
 		}

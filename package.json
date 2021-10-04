@@ -13,7 +13,7 @@
 		"start:devForPC": "nodemon server --ignore dist/ --ignore src/",
 		"start:devForPC:logger": "set LOGGING=true && nodemon server --ignore dist/ --ignore src/",
 		"start:devForPC:seed": "set SEED=true && nodemon server --ignore dist/ --ignore src/",
-		"start": "node server"
+		"start": "nodemon server"
 	},
 	"repository": {
 		"type": "git",

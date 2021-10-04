@@ -25,22 +25,24 @@ class MyGames extends Component {
 	}
 
 	render() {
-		const { games, user } = this.props;
+		const { userGames, user } = this.props;
 		const { leaveGame } = this;
-		if(games.length >0){
+		if(userGames.length > 0){
 				return (
 					<div>
 						<div className='myGamesHeader' >
-							<h1>You have {games.length} upcoming games!</h1>
+							<h1>You have {userGames.length} upcoming games!</h1>
 						</div>
 						<div className='courtFinder'>
 							<div > 
 								<div className='myGamesList' className = 'container justify-content-center'>
-									{games.map((game) => {
-										const players = game.users;
+									{userGames.map((userGame) => {
+										const players = userGame.users;
+                    const game = userGame.game;
+                    console.log(userGame)
 										return (
 											<div key={game.id} className='card-body' style={{ width: 375 + 'px' }}>
-												<GameCard game={game} players={players} />
+												{/* <GameCard game={game} players={players} /> */}
 												<div >
 													<center>
 														<button type='button' className='text-center btn btn-primary' onClick={() => leaveGame(game)}>
@@ -65,12 +67,12 @@ class MyGames extends Component {
 								</div>
 							</div>
 							<div className='courtMap'>
-                <GameMap courts={games}/>
+                {/* <GameMap courts={games}/> */}
 							</div>
 						</div>
 					</div>
 				);
-		}else{
+		} else {
 			return(
 				<div>
 					<h1>You have no upcoming games.</h1>
@@ -82,7 +84,7 @@ class MyGames extends Component {
 
 const mapState = ({ games, users }) => {
 	return {
-		games: games.openForUser,
+		userGames: games.openForUser,
 		user: users.single,
 	};
 };

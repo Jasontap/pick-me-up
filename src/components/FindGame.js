@@ -73,6 +73,7 @@ class FindGame extends Component{
     const { games, user } = this.props;
     const { joinGame, guestUser } = this;
     const zipcodes = []
+    console.log(games)
 
       return (
         <div className='findGame'>
