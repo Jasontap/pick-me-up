@@ -27,6 +27,7 @@ class MyGames extends Component {
 	render() {
 		const { userGames, user } = this.props;
 		const { leaveGame } = this;
+    console.log(userGames)
 		if(userGames.length > 0){
 				return (
 					<div>
@@ -34,15 +35,15 @@ class MyGames extends Component {
 							<h1>You have {userGames.length} upcoming games!</h1>
 						</div>
 						<div className='courtFinder'>
-							<div > 
+							{/* <div > 
 								<div className='myGamesList' className = 'container justify-content-center'>
 									{userGames.map((userGame) => {
 										const players = userGame.users;
                     const game = userGame.game;
-                    console.log(userGame)
+
 										return (
 											<div key={game.id} className='card-body' style={{ width: 375 + 'px' }}>
-												{/* <GameCard game={game} players={players} /> */}
+												<GameCard game={game} players={players} />
 												<div >
 													<center>
 														<button type='button' className='text-center btn btn-primary' onClick={() => leaveGame(game)}>
@@ -65,11 +66,11 @@ class MyGames extends Component {
 										);
 									})}
 								</div>
-							</div>
+							</div>  */}
 							<div className='courtMap'>
                 {/* <GameMap courts={games}/> */}
 							</div>
-						</div>
+						</div> 
 					</div>
 				);
 		} else {

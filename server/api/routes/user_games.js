@@ -36,20 +36,22 @@ router.get(
 	async (req, res, next) => {
 		try {
 			const gameLinksForUser = await UserGame.findAll({
-				where: {
-					// userId: req.user.id,
-					userId: req.params.userId,
-				},
-				include: [Game, User]
-			});
-			const games = gameLinksForUser.map((link) => link.game);
-      // const upcomingGames = games.map(async(game) => {
-        
-      // } )
+        where: {
+          userId: req.user.id
+        }
+      });
+			const gameIds = gameLinksForUser.map((link) => link.gameId);
+      const openUserGames = await Promise.all(gameIds.map(gameId => {
+        return UserGame.findAll({
+          where: {
+            gameId: gameId
+          },
+          include: [User, Game]
+        })
+      }))
 			// const upcomingGames = games.filter((game) => game.time > Date.now());
-			// const upcomingGames = gameLinksForUser.filter((link) => link.game.time > Date.now());
-      // console.log(gameLinksForUser)
-			res.send(gameLinksForUser);
+
+			res.send(openUserGames);
 		} catch (ex) {
 			next(ex);
 		}
