@@ -38,20 +38,14 @@ router.get(
 			const gameLinksForUser = await UserGame.findAll({
         where: {
           userId: req.user.id
-        }
+        },
+        include: [{
+          model: Game,
+          include: [User]
+        }]
       });
-			const gameIds = gameLinksForUser.map((link) => link.gameId);
-      const userGames = await Promise.all(gameIds.map(gameId => {
-        return UserGame.findAll({
-          where: {
-            gameId: gameId
-          },
-          include: [User, Game]
-        })
-      }))
-			// const upcomingGames = games.filter((game) => game.time > Date.now());
 
-			res.send(userGames);
+			res.send(gameLinksForUser);
 		} catch (ex) {
 			next(ex);
 		}
