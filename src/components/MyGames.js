@@ -27,46 +27,48 @@ class MyGames extends Component {
 	render() {
 		const { userGames, user } = this.props;
 		const { leaveGame } = this;
-    console.log(userGames)
+    
 		if(userGames.length > 0){
 				return (
 					<div>
 						<div className='myGamesHeader' >
-							<h1>You have {userGames.length} upcoming games!</h1>
+							<h1>You have {userGames.length} game{userGames.length > 1 ? 's' : ''}</h1>
 						</div>
 						<div className='courtFinder'>
-							{/* <div > 
+							<div > 
 								<div className='myGamesList' className = 'container justify-content-center'>
-									{userGames.map((userGame) => {
-										const players = userGame.users;
-                    const game = userGame.game;
+									{
+                    userGames.map(userGame => {
+                      const game = userGame.game;
+                      const players = game.users;
 
-										return (
-											<div key={game.id} className='card-body' style={{ width: 375 + 'px' }}>
-												<GameCard game={game} players={players} />
-												<div >
-													<center>
-														<button type='button' className='text-center btn btn-primary' onClick={() => leaveGame(game)}>
-															Leave this game
-														</button>
-														<Link 
-															//this is setting the url path and persisting gameid in state when chat loads
-															to={{ 
-																pathname:`/chat/${game.chatId}`,
-																state: { gameId: game.id }
-															}}
-														>
-															<button className='text-center btn btn-primary'>
-																Chat
-															</button>
-														</Link>
-													</center>
-												</div>
-											</div>
-										);
-									})}
+                      return (
+                        <div key={game.id} className='card-body' style={{ width: 375 + 'px' }}>
+                          <GameCard game={game} players={players} />
+                          <div >
+                            <center>
+                              <button type='button' className='text-center btn btn-primary' onClick={() => leaveGame(game)}>
+                                Leave this game
+                              </button>
+                              <Link 
+                                //this is setting the url path and persisting gameid in state when chat loads
+                                to={{ 
+                                  pathname:`/chat/${game.chatId}`,
+                                  state: { gameId: game.id }
+                                }}
+                              >
+                                <button className='text-center btn btn-primary'>
+                                  Chat
+                                </button>
+                              </Link>
+                            </center>
+                          </div>
+                        </div>
+                      );
+                    })
+                  }
 								</div>
-							</div>  */}
+							</div> 
 							<div className='courtMap'>
                 {/* <GameMap courts={games}/> */}
 							</div>
