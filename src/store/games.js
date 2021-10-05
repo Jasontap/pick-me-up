@@ -129,10 +129,10 @@ export const loadClosedGamesForUser = (userId, token) => {
 	};
 };
 
-export const loadOpenGamesForUser = (userId, token) => {
+export const loadAllGamesForUser = (userId, token) => {
 	return async (dispatch) => {
 		const games = (
-			await axios.get(`/api/user_games/open/${userId}?pickmeup-token=${token}`)
+			await axios.get(`/api/user_games/all/${userId}?pickmeup-token=${token}`)
 		).data;
 		dispatch(_loadGamesForUser(games));
 	};

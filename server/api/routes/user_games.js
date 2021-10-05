@@ -29,9 +29,9 @@ router.get("/:gameId/players", async (req, res, next) => {
 	}
 });
 
-//gets all open games for a single user
+//gets all games for a single user (including all respective players in game)
 router.get(
-	"/open/:userId",
+	"/all/:userId",
 	passport.authenticate("jwt", { session: false }),
 	async (req, res, next) => {
 		try {
@@ -41,7 +41,7 @@ router.get(
         }
       });
 			const gameIds = gameLinksForUser.map((link) => link.gameId);
-      const openUserGames = await Promise.all(gameIds.map(gameId => {
+      const userGames = await Promise.all(gameIds.map(gameId => {
         return UserGame.findAll({
           where: {
             gameId: gameId
@@ -51,7 +51,7 @@ router.get(
       }))
 			// const upcomingGames = games.filter((game) => game.time > Date.now());
 
-			res.send(openUserGames);
+			res.send(userGames);
 		} catch (ex) {
 			next(ex);
 		}

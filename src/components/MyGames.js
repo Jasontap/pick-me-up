@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import GameCard from "./GameCard";
-import { loadOpenGamesForUser } from "../store/games";
+import { loadAllGamesForUser } from "../store/games";
 import axios from "axios";
 import GameMap from './GameMap';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
@@ -15,13 +15,13 @@ class MyGames extends Component {
 
 	componentDidMount() {
 		const token = localStorage.getItem("pickmeup-token");
-		this.props.loadOpenGamesForUser(this.props.user.id, token);
+		this.props.loadAllGamesForUser(this.props.user.id, token);
 	}
 
 	async leaveGame(game) {
 		const token = localStorage.getItem("pickmeup-token");
 		await axios.delete(`/api/user_games/${game.id}/${this.props.user.id}`);
-		this.props.loadOpenGamesForUser(this.props.user.id, token);
+		this.props.loadAllGamesForUser(this.props.user.id, token);
 	}
 
 	render() {
@@ -92,8 +92,8 @@ const mapState = ({ games, users }) => {
 
 const mapDispatch = (dispatch) => {
 	return {
-		loadOpenGamesForUser: (userId, token) =>
-			dispatch(loadOpenGamesForUser(userId, token)),
+		loadAllGamesForUser: (userId, token) =>
+			dispatch(loadAllGamesForUser(userId, token)),
 	};
 };
 
