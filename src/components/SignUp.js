@@ -11,39 +11,10 @@ function SignUp() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [name, setName] = useState("");
+  const [error, setError] = useState("");
 
 	// Redux
 	const dispatch = useDispatch();
-
-	const joinGame = async (game, userId) =>{
-    let teamToJoin = '';
-    //check if there are an even or odd number of players assigns the new player accordingly (team A if this player will be odd Tean B for even) 
-    if ((game.users.length * 1) % 2 === 0){
-      teamToJoin = 'TEAM A';
-    }
-    else {
-      teamToJoin = 'TEAM B';
-    }
-    if(Date.now() < game.time * 1){
-      const addPlayer = (await axios.post('/api/user_games', { gameId: game.id, userId: userId, team: teamToJoin })).data;
-      
-      if(!addPlayer.created){
-        window.alert('You have already joined this game.');
-      } else {
-        window.alert(`You\'ve joined game ${game.id}!`)
-      }
-    } else {
-      window.alert('Sorry this game has already started. Please select another game.');
-      await axios.put(`/api/games/${game.id}`, { open: false });
-    }
-    // this.props.loadOpenGames();
-  };
-
-	const joinNewGame = async (newGame, userId) =>{
-		newGame.host = userId;
-		const game = (await axios.post('/api/games', newGame)).data
-    await axios.post('/api/user_games', { gameId: game.id, userId: userId, team: 'TEAM A' });
-  };
 
 	// Create user
 	const registerUser = async () => {
@@ -53,10 +24,18 @@ function SignUp() {
 			name,
 		};
 
-		const response = await axios.post("/api/users", request);
-    // const results = await response.json();
-    console.log(response)
     console.log('hello')
+    const response = await fetch("/api/users", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(request),
+    })
+    
+    console.log(response)
+    
+    
     
 		// if (response) {
 		// 	//the logic from Login.js so a user is automatically logged in after creating an account 

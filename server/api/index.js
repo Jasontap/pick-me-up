@@ -3,7 +3,7 @@ const { static } = express;
 const path = require("path");
 const passport = require("passport");
 const volleyball = require('volleyball');
-const userRegistrationError = require('./middleware/registerError');
+const userRegistrationError = require('./middleware/userRegistrationError');
 
 const app = express();
 module.exports = app;
@@ -57,7 +57,7 @@ app.post('/api/user_games', async(req, res, next)=> {
 
 
 const logError = (err, req, res, next) => {
-  console.error(err.stack);
+  console.error(err.status);
   next(err);
 };
 
@@ -69,10 +69,9 @@ const clientErrorHandler = (err, req, res, next) => {
 };
 
 const errorHandler = (err, req, res, next) => {
-  // res.status(500);
-  res.render('error', { error: err });
+  res.status(500).send({ error: err });
 };
 
-app.use(logError, userRegistrationError, errorHandler);
+app.use(logError, userRegistrationError);
 // app.use(clientErrorHandler);
 // app.use(errorHandler);
