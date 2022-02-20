@@ -46,35 +46,37 @@ function SignUp() {
   };
 
 	// Create user
-	const createUser = async () => {
+	const registerUser = async () => {
 		const request = {
 			email,
 			password,
 			name,
 		};
 
-
-
 		const response = await axios.post("/api/users", request);
-		if (response) {
-			//the logic from Login.js so a user is automatically logged in after creating and account 
-			const response2 = await axios.post("/api/login", request);
-			localStorage.setItem("pickmeup-token", response2.data.token);
-			dispatch(loadUser(response2.data.id));
-			const game = JSON.parse(localStorage.getItem("game"))
-			const newGame = JSON.parse(localStorage.getItem("newGame"))
+    // const results = await response.json();
+    console.log(response)
+    console.log('hello')
+    
+		// if (response) {
+		// 	//the logic from Login.js so a user is automatically logged in after creating an account 
+		// 	const response2 = await axios.post("/api/login", request);
+		// 	localStorage.setItem("pickmeup-token", response2.data.token);
+		// 	dispatch(loadUser(response2.data.id));
+		// 	const game = JSON.parse(localStorage.getItem("game"))
+		// 	const newGame = JSON.parse(localStorage.getItem("newGame"))
 			
-			if (game){
-				joinGame(game, response2.data.id);
-			}
-			if (newGame) {
-				joinNewGame(newGame, response2.data.id)	
-			} 
-			history.push('/');
+		// 	if (game){
+		// 		joinGame(game, response2.data.id);
+		// 	}
+		// 	if (newGame) {
+		// 		joinNewGame(newGame, response2.data.id)	
+		// 	} 
+		// 	history.push('/');
 
-		} else {
-			console.log("Failed");
-		}
+		// } else {
+		// 	console.log("Failed");
+		// }
 	};
 
 	// history, this will be useful once user is automatically logged in
@@ -122,7 +124,7 @@ function SignUp() {
 				/>
 				</div>
 			</form>
-			<button onClick={createUser}>Sign Up</button>
+			<button onClick={registerUser}>Sign Up</button>
 			<p>
 				Already a user? <Link to="/login">Log in to existing account.</Link>
 			</p>

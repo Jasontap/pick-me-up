@@ -55,7 +55,25 @@ app.post('/api/user_games', async(req, res, next)=> {
 })
 
 
-//final error catcher 
-app.use((err, req, res, next)=>{
-  res.status(500).send({ error: err });
-});
+const logError = (err, req, res, next) => {
+  console.error(err.stack);
+  next(err);
+};
+
+const clientErrorHandler = (err, req, res, next) => {
+  // res.status(404).send('error', { error: err });
+  if (req.hxr) {
+    res.status(500).send({ error: 'something failed!'});
+  } else {
+    next(err);
+  }
+};
+
+const errorHandler = (err, req, res, next) => {
+  // res.status(500);
+  res.render('error', { error: err });
+};
+
+app.use(logError);
+app.use(clientErrorHandler);
+app.use(errorHandler);
