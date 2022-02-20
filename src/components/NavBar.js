@@ -61,6 +61,7 @@ const Navbar = (props) => {
       ) : (
         <div className=' nav nav-tabs justify-content-around'>
           <Link className='nav-link btn-danger text-dark' to='/games'> Find a Game </Link>
+          <Link className='nav-link btn btn-danger text-dark' to='/'> Home </Link>
           <Link className='nav-link btn-danger text-dark' to="/login"> Login </Link>
         </div>
       )}
