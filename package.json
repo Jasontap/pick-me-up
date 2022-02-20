@@ -9,7 +9,7 @@
 		"build:dev": "npm run build -- --watch --mode=development",
 		"start:dev:logger": "LOGGING=true npm run start:dev:seed",
 		"start:dev:seed": "SEED=true npm run start:dev",
-		"start:dev": "npm run build:dev & npm run start --ignore dist/ --ignore src/",
+		"start:dev": "cross-env MY_VAR=production npm run build:dev & npm run start --ignore dist/ --ignore src/",
 		"start:devForPC": "nodemon server --ignore dist/ --ignore src/",
 		"start:devForPC:logger": "set LOGGING=true && nodemon server --ignore dist/ --ignore src/",
 		"start:devForPC:seed": "set SEED=true && nodemon server --ignore dist/ --ignore src/",
@@ -17,18 +17,19 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Cat-Stone/pick-me-up.git"
+		"url": "git+https://github.com/Jasontap/pick-me-up.git"
 	},
 	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/Cat-Stone/pick-me-up/issues"
+		"url": "https://github.com/Jasontap/pick-me-up/issues"
 	},
-	"homepage": "https://github.com/Cat-Stone/pick-me-up#readme",
+	"homepage": "https://github.com/Jasontap/pick-me-up#readme",
 	"dependencies": {
 		"@material-ui/core": "^4.11.3",
 		"axios": "^0.21.1",
 		"bcrypt": "^5.0.1",
+		"cross-env": "^7.0.3",
 		"dotenv": "^8.2.0",
 		"dotenv-webpack": "^7.0.2",
 		"express": "^4.17.1",

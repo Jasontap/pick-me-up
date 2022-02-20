@@ -25,15 +25,17 @@ router.get("/:id", async (req, res, next) => {
 
 
 //gets a user with token
-router.get("/token/:id", 
-passport.authenticate("jwt", { session: false }), 
-async (req, res, next) => {
-	try {
-		res.send(await User.findByPk(req.user.id));
-	} catch (ex) {
-		next(ex);
-	}
-});
+router.get(
+  "/token/:id", 
+  passport.authenticate("jwt", { session: false }), 
+  async (req, res, next) => {
+    try {
+      res.send(await User.findByPk(req.user.id));
+    } catch (ex) {
+      next(ex);
+    }
+  }
+);
 
 // creates a user
 router.post("/", async (req, res, next) => {

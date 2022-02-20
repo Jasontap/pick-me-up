@@ -3,6 +3,7 @@ const { static } = express;
 const path = require("path");
 const passport = require("passport");
 const volleyball = require('volleyball');
+const userRegistrationError = require('./middleware/registerError');
 
 const app = express();
 module.exports = app;
@@ -61,12 +62,10 @@ const logError = (err, req, res, next) => {
 };
 
 const clientErrorHandler = (err, req, res, next) => {
-  // res.status(404).send('error', { error: err });
-  if (req.hxr) {
-    res.status(500).send({ error: 'something failed!'});
-  } else {
-    next(err);
-  }
+  if (err.name === 'SequelizeUniqueConstraintError') res.send({ error: 'Information used already!'});
+  // } else {
+  //   next(err);
+  // }
 };
 
 const errorHandler = (err, req, res, next) => {
@@ -74,6 +73,6 @@ const errorHandler = (err, req, res, next) => {
   res.render('error', { error: err });
 };
 
-app.use(logError);
-app.use(clientErrorHandler);
-app.use(errorHandler);
+app.use(logError, userRegistrationError, errorHandler);
+// app.use(clientErrorHandler);
+// app.use(errorHandler);
