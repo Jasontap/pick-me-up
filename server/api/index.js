@@ -57,7 +57,7 @@ app.post('/api/user_games', async(req, res, next)=> {
 
 
 const logError = (err, req, res, next) => {
-  console.error(err.status);
+  console.error('from error logger', err);
   next(err);
 };
 
@@ -72,6 +72,5 @@ const errorHandler = (err, req, res, next) => {
   res.status(500).send({ error: err });
 };
 
-app.use(logError, userRegistrationError);
-// app.use(clientErrorHandler);
-// app.use(errorHandler);
+app.use(userRegistrationError, errorHandler);
+

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
@@ -24,7 +24,6 @@ function SignUp() {
 			name,
 		};
 
-    console.log('hello')
     const response = await fetch("/api/users", {
       method: "POST",
       headers: {
@@ -33,34 +32,34 @@ function SignUp() {
       body: JSON.stringify(request),
     })
     
-    console.log(response)
-    
-    
-    
-		// if (response) {
-		// 	//the logic from Login.js so a user is automatically logged in after creating an account 
-		// 	const response2 = await axios.post("/api/login", request);
-		// 	localStorage.setItem("pickmeup-token", response2.data.token);
-		// 	dispatch(loadUser(response2.data.id));
-		// 	const game = JSON.parse(localStorage.getItem("game"))
-		// 	const newGame = JSON.parse(localStorage.getItem("newGame"))
-			
-		// 	if (game){
-		// 		joinGame(game, response2.data.id);
-		// 	}
-		// 	if (newGame) {
-		// 		joinNewGame(newGame, response2.data.id)	
-		// 	} 
-		// 	history.push('/');
+    const data = await response.json();
 
-		// } else {
-		// 	console.log("Failed");
-		// }
+    if (data.error) {
+      setError(data.message);
+      return;
+    }
+    
+    //the logic from Login.js so a user is automatically logged in after creating an account 
+    const response2 = await axios.post("/api/login", request);
+    localStorage.setItem("pickmeup-token", response2.data.token);
+    dispatch(loadUser(response2.data.id));
+    const game = JSON.parse(localStorage.getItem("game"))
+    const newGame = JSON.parse(localStorage.getItem("newGame"))
+    
+    if (game){
+      joinGame(game, response2.data.id);
+    }
+    if (newGame) {
+      joinNewGame(newGame, response2.data.id)	
+    } 
+    history.push('/');
+
 	};
 
 	// history, this will be useful once user is automatically logged in
 	// after creating am account
 	const history = useHistory();
+
 
 	return (
 		<div className='container justify-content-center'>
@@ -104,6 +103,7 @@ function SignUp() {
 				</div>
 			</form>
 			<button onClick={registerUser}>Sign Up</button>
+      { error && <p>{error}</p> }
 			<p>
 				Already a user? <Link to="/login">Log in to existing account.</Link>
 			</p>
