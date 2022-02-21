@@ -11,6 +11,8 @@ function SignUp() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
   const [pwConfirm, setPwConfirm] = useState("");
+  const [visiblePW, setVisiblePW] = useState(false);
+  const [visiblePWConfirm, setVisiblePWConfirm] = useState(false);
 	const [name, setName] = useState("");
   const [error, setError] = useState("");
 
@@ -60,6 +62,20 @@ function SignUp() {
 	// after creating am account
 	const history = useHistory();
 
+  const togglePassword = (e) => {
+    let type = e.target.previousSibling.type;
+    e.target.previousSibling.type = (type === 'password') ? 'text' : 'password';
+    (e.target.previousSibling.id === 'password') ? setVisiblePW(!visiblePW) : setVisiblePWConfirm(!visiblePWConfirm);
+  }
+
+  const passwordIcon = (visibility) => {
+    return visibility ? (
+      <img src='./images/util/view.png' width='20px' onClick={(e) => togglePassword(e)} /> 
+    ) : (
+      <img src='./images/util/hidden.png' width='20px' onClick={(e) => togglePassword(e)} /> 
+    )
+  }
+
 
 	return (
 		<div className='container justify-content-center'>
@@ -100,9 +116,10 @@ function SignUp() {
               setPassword(ev.target.value);
             }}
           />
+          { passwordIcon(visiblePW) }
 				</div>
 				<div className="form-group">
-          <label htmlFor="pwConfirm">Confirm Password {(password !== pwConfirm) && '*' }</label>
+          <label htmlFor="pwConfirm">Confirm Password { (password !== pwConfirm) && '*' }</label>
           <input
             type="password"
             id="pwConfirm"
@@ -112,6 +129,7 @@ function SignUp() {
               setPwConfirm(ev.target.value);
             }}
           />
+          { passwordIcon(visiblePWConfirm) }
 				</div>
 			</form>
 			<button onClick={registerUser}>Sign Up</button>
