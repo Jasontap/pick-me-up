@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 function SignUp() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+  const [pwConfirm, setPwConfirm] = useState("");
 	const [name, setName] = useState("");
   const [error, setError] = useState("");
 
@@ -18,6 +19,8 @@ function SignUp() {
 
 	// Create user
 	const registerUser = async () => {
+    if (password !== pwConfirm) return setError('* Passwords do no match.');
+
 		const request = {
 			email,
 			password,
@@ -66,40 +69,52 @@ function SignUp() {
 			<h2 className='text-center'>New User Sign Up</h2>
 			<form>
 				<div className="form-group">
-				<label htmlFor="name">Full Name</label>
-				<input
-					type="text"
-					id="name"
-					value={name}
-					className="form-control"
-					onChange={(ev) => {
-						setName(ev.target.value);
-					}}
-				/>
+          <label htmlFor="name">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            className="form-control"
+            onChange={(ev) => {
+              setName(ev.target.value);
+            }}
+          />
 				</div>
-					<div className="form-group">
-				<label htmlFor="email">Email Address</label>
-				<input
-					type="text"
-					id="email"
-					value={email}
-					className="form-control"
-					onChange={(ev) => {
-						setEmail(ev.target.value);
-					}}
-				/>
+        <div className="form-group">
+          <label htmlFor="email">Email Address</label>
+          <input
+            type="text"
+            id="email"
+            value={email}
+            className="form-control"
+            onChange={(ev) => {
+              setEmail(ev.target.value);
+            }}
+          />
 				</div>
 				<div className="form-group">
-				<label htmlFor="password">Password</label>
-				<input
-					type="text"
-					id="password"
-					value={password}
-					className="form-control"
-					onChange={(ev) => {
-						setPassword(ev.target.value);
-					}}
-				/>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            className="form-control"
+            onChange={(ev) => {
+              setPassword(ev.target.value);
+            }}
+          />
+				</div>
+				<div className="form-group">
+          <label htmlFor="pwConfirm">Confirm Password {(password !== pwConfirm) && '*' }</label>
+          <input
+            type="password"
+            id="pwConfirm"
+            value={pwConfirm}
+            className="form-control"
+            onChange={(ev) => {
+              setPwConfirm(ev.target.value);
+            }}
+          />
 				</div>
 			</form>
 			<button onClick={registerUser}>Sign Up</button>
