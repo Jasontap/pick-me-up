@@ -27,7 +27,7 @@ function SignUp() {
 			name,
 		};
 
-    const response = await fetch("/api/users", {
+    const registerRes = await fetch("/api/users", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -35,26 +35,23 @@ function SignUp() {
       body: JSON.stringify(request),
     })
     
-    const data = await response.json();
+    const registerData = await registerRes.json();
 
-    if (data.error) {
-      setError(data.message);
+    if (registerData.error) {
+      setError(registerData.message);
       return;
     }
     
     //the logic from Login.js so a user is automatically logged in after creating an account 
-    const response2 = await axios.post("/api/login", request);
-    localStorage.setItem("pickmeup-token", response2.data.token);
-    dispatch(loadUser(response2.data.id));
-    const game = JSON.parse(localStorage.getItem("game"))
-    const newGame = JSON.parse(localStorage.getItem("newGame"))
+    const { data } = await axios.post("/api/login", request);
+    localStorage.setItem("pickmeup-token", data.token);
+    dispatch(loadUser(data.id));
+    // const game = JSON.parse(localStorage.getItem("game"))
+    // const newGame = JSON.parse(localStorage.getItem("newGame"))
     
-    if (game){
-      joinGame(game, response2.data.id);
-    }
-    if (newGame) {
-      joinNewGame(newGame, response2.data.id)	
-    } 
+    // if (game) joinGame(game, data.id);
+    // if (newGame) joinNewGame(newGame, data.id);
+
     history.push('/');
 
 	};
