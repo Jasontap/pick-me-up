@@ -9,6 +9,7 @@ const Login = () => {
 	// state
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+  const [visiblePW, setVisiblePW] = useState("");
 	const [error, setError] = useState("");
 
 	// Redux
@@ -42,6 +43,20 @@ const Login = () => {
 		}
 	};
 
+  const togglePassword = (e) => {
+    const type = e.target.previousSibling.type;
+    e.target.previousSibling.type = (type === 'password') ? 'text' : 'password';
+    setVisiblePW(!visiblePW);
+  }
+
+  const passwordView = (visibility) => {
+    return visibility ? (
+      <img src='./images/util/view.png' width='20px' onClick={ (e) => togglePassword(e)} /> 
+    ) : (
+      <img src='./images/util/hidden.png' width='20px' onClick={ (e) => togglePassword(e)} /> 
+    )
+  };
+
 	return (
 		<div className='container justify-content-center'  > 
 			
@@ -61,7 +76,7 @@ const Login = () => {
 				<div className='form-group'>
 				<label htmlFor="password">Password</label>
 				<input
-					type="text"
+					type="password"
 					id="password"
 					value={password}
 					className='form-control'
@@ -69,6 +84,7 @@ const Login = () => {
 						setPassword(ev.target.value);
 					}}
 				/>
+        { passwordView(visiblePW) }
 				</div>
 			</form>
 			<button onClick={login}>Log In</button>
